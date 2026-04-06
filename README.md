@@ -82,4 +82,4 @@ npx react-native run-ios
 2. Biometric Lock: Adding Fingerprint/FaceID for extra security.
 3. Data Export: Exporting monthly reports in PDF/CSV format.
 
-Developed by Shivangi Bangar.
+Developed by Shivangi Bangar. 
