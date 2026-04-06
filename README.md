@@ -1,97 +1,85 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+💰 Personal Finance App
+A lightweight, intuitive, and modern mobile application designed to help users track their daily money habits, monitor savings goals, and understand spending patterns through visual insights.
 
-# Getting Started
+🚀 Project Overview
+This app is built as a Personal Finance Companion (not a banking app). It focuses on simplicity and speed, allowing users to quickly log transactions, see their current financial health at a glance, and stay motivated toward their savings targets.
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+✨ Key Features
+1. Home Dashboard
+Summary Cards: Real-time calculation of Total Balance, Income, and Expenses.
+Visual Progress: Integrated a "Savings Goal" progress bar to keep users engaged with their financial targets.
+Recent Activity: A quick view of the latest transactions with distinct color coding for Income (+) and Expenses (-).
 
-## Step 1: Start Metro
+2. Transaction Management (Full CRUD)
+Add/Edit: A unified form to create new entries or modify existing ones with pre-filled data.
+Search & Filter: A dedicated search bar on the home screen to quickly find specific transactions by title.
+Delete: Swipe-to-delete or trash icon functionality with a confirmation alert to prevent accidental data loss.
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+3. Smart Insights
+Expense Breakdown: A dynamic Pie Chart that categorizes spending (Food, Shopping, Others) based on transaction titles.
+Dynamic Tips: A "Smart Tip" system that gives contextual advice based on the user's spending habits (e.g., advising to Cook at home if Food expenses are high).
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+4. User Experience (UX) Polish
+Loading States: Implemented Shimmer Effect (Skeleton screens) to provide a smooth feel during initial data hydration.
+Empty States: Thoughtfully designed "No Data" screens with actionable prompts (CTA) when the transaction list is empty.
+Modern UI: Used Linear Gradients, soft shadows, and a clean typography hierarchy for a premium mobile feel.
 
-```sh
-# Using npm
-npm start
 
-# OR using Yarn
-yarn start
-```
+🛠 Tech Stack
+1. Framework: React Native (CLI)
+2. State Management: Redux Toolkit (for predictable state)
+3. Persistence: Redux Persist + AsyncStorage (Offline-first approach)
+4. Navigation: React Navigation (Stack & Bottom Tabs)
+5. UI Components: React Native SVG, Chart Kit, Vector Icons, Linear Gradient.
 
-## Step 2: Build and run your app
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+📋 Assumptions & Product Thinking
+During development, I made the following sensible assumptions:
 
-### Android
+1. Offline-First: Finance tracking should be instant. I chose Local Storage over a Cloud API to ensure the app works perfectly without internet, respecting user privacy.
+2. Single Currency: The app defaults to ₹ (INR) for consistency in this version.
+3. Keyword-Based Categorization: Instead of making the user select 20 different categories, the "Insights" engine automatically categorizes expenses based on keywords like "Food" or "Shop" to save user time.
+4. Safety First: Critical actions like "Delete" always trigger a native confirmation alert.
 
-```sh
-# Using npm
-npm run android
 
-# OR using Yarn
-yarn android
-```
+🏗 Project Structure
 
-### iOS
+src/
+ ├── assets/          # Icons and Fonts
+ ├── components/      # Reusable UI (Shimmer, Buttons, Cards)
+ ├── navigation/      # Stack & Tab Navigators
+ ├── redux/           # Slices (Transaction logic) and Store configuration
+ ├── screens/         # Main Screen components (Home, Add, Insights)
+ ├── utils/           # Global Theme (Colors, Sizes) and Constants
 
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
 
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
+📥 Setup Instructions
+-> Prerequisites
+Node.js (>14)
+React Native Environment Setup (Android Studio / Xcode)
 
-```sh
-bundle install
-```
+-> Installation
+1. Clone the repository:
+git clone https://github.com/Shivangi-Space/FinanceApp.git
+cd FinanceApp
 
-Then, and every time you update your native dependencies, run:
+2. Install Dependencies:
+npm install
 
-```sh
-bundle exec pod install
-```
+3. Link Icons (Android only):
+Ensure apply from: "../../node_modules/react-native-vector-icons/fonts.gradle" is in android/app/build.gradle.
 
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
+4. Run the Application:
+# For Android
+npx react-native run-android
 
-```sh
-# Using npm
-npm run ios
+# For iOS
+npx react-native run-ios
 
-# OR using Yarn
-yarn ios
-```
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+📈 Future Enhancements
+1. Multi-Currency Support: Ability to switch between USD, EUR, etc.
+2. Biometric Lock: Adding Fingerprint/FaceID for extra security.
+3. Data Export: Exporting monthly reports in PDF/CSV format.
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
-
-## Step 3: Modify your app
-
-Now that you have successfully run the app, let's make changes!
-
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
-
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
-
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+Developed by Shivangi Bangar.
