@@ -1,7 +1,7 @@
-💰 Personal Finance App
+## Introduction of Finance App
 A lightweight, intuitive, and modern mobile application designed to help users track their daily money habits, monitor savings goals, and understand spending patterns through visual insights.
 
-🚀 Project Overview
+🚀 Project Overview:
 This app is built as a Personal Finance Companion (not a banking app). It focuses on simplicity and speed, allowing users to quickly log transactions, see their current financial health at a glance, and stay motivated toward their savings targets.
 
 ✨ Key Features
