@@ -51,7 +51,6 @@ const transactionSlice = createSlice({
     if (index !== -1) {
         const oldItem = state.list[index];
         
-        // Removing old transaction balance
         if (oldItem.type.toLowerCase() === 'income') {
             state.balance -= oldItem.amount;
             state.income -= oldItem.amount;
@@ -60,11 +59,9 @@ const transactionSlice = createSlice({
             state.expense -= oldItem.amount;
         }
 
-        // Updating
         state.list[index] = { ...oldItem, ...updatedData };
         const newItem = state.list[index];
 
-        // New transaction balance
         if (newItem.type.toLowerCase() === 'income') {
             state.balance += newItem.amount;
             state.income += newItem.amount;

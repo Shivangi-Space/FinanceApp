@@ -70,13 +70,11 @@ const AddTransaction = ({ navigation, route }) => {
           >
             <Icon name="arrow-left" size={28} color={COLORS.black} />
           </TouchableOpacity>
-          {/* <Text style={styles.headerTitle}>Add Transaction</Text> */}
-           <Text style={styles.headerTitle}>{editItem ? 'Edit Entry' : 'Add New Entry'}</Text>
+           <Text style={styles.headerTitle}>{editItem ? 'Update Transaction' : 'Add Transaction'}</Text>
           <View style={{ width: 40 }} /> 
         </View>
 
         <View style={styles.form}>
-          {/* Amount Input Large */}
           <View style={styles.amountContainer}>
             <Text style={styles.currencySymbol}>₹</Text>
             <TextInput
@@ -136,7 +134,6 @@ const AddTransaction = ({ navigation, route }) => {
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 0 }}
             >
-              {/* <Text style={styles.saveButtonText}>Add Transaction</Text> */}
               <Text style={styles.saveButtonText}>
              {editItem ? 'Update Transaction' : 'Save Transaction'}
           </Text>
