@@ -8,7 +8,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import { useDispatch } from 'react-redux';
-import { addTransation } from '../redux/transactionSlice';
+import { addTransaction } from '../redux/transactionSlice';
 import { COLORS, SIZES } from '../utils/theme';
 
 const AddTransaction = ({ navigation }) => {

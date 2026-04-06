@@ -11,7 +11,7 @@ const HomeStack = () => {
             <Stack.Screen
                 name="HomeMain"
                 component={HomeScreen}
-                options={{ headerShow: false }}
+                options={{ headerShown: false }}
             />
 
             <Stack.Screen

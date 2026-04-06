@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -8,12 +8,36 @@ import {
 } from 'react-native';
 import { useSelector } from 'react-redux';
 import { COLORS, SIZES } from '../utils/theme';
+import Shimmer from '../components/Shimmer';
 
 const HomeScreen = ({ navigation }) => {
+  const [loading, setLoading] = useState(true);
   // Fetching data from Redux store
   const { list, balance, income, expense } = useSelector(
     state => state.transaction,
   );
+
+  useEffect(() => {
+    setTimeout(() => setLoading(false), 1500);
+  }, []);
+
+  if (loading) {
+    return (
+      <View style={{ padding: 20, paddingTop: 50 }}>
+        <Shimmer width={150} height={20} />
+        <View style={{ marginTop: 20 }}>
+          <Shimmer width={'100%'} height={150} borderRadius={15} />
+          <View style={{ marginTop: 30 }}>
+            <Shimmer width={100} height={20} />
+            <View style={{ marginTop: 15, gap: 10 }}>
+              <Shimmer width={'100%'} height={60} />
+              <Shimmer width={'100%'} height={60} />
+            </View>
+          </View>
+        </View>
+      </View>
+    );
+  };
 
   const renderHeader = () => (
     <View style={styles.headerContainer}>

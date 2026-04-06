@@ -9,7 +9,7 @@ const transactionSlice = createSlice({
         expense: 0,
     },
     reducers: {
-        addTranaction: (state, action) => {
+        addTransaction: (state, action) => {
             state.list.unshift(action.payload);
             if(action.payload.type === 'income') {
                 state.income += action.payload.amount;
@@ -26,5 +26,5 @@ const transactionSlice = createSlice({
     },
 });
 
-export const { addTranaction, deleteTransaction } = transactionSlice.actions;
+export const { addTransaction, deleteTransaction } = transactionSlice.actions;
 export default transactionSlice.reducer;
