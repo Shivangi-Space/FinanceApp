@@ -60,21 +60,24 @@ React Native Environment Setup (Android Studio / Xcode)
 
 -> Installation
 1. Clone the repository:
+
 git clone https://github.com/Shivangi-Space/FinanceApp.git
 cd FinanceApp
 
 2. Install Dependencies:
+
 npm install
 
 3. Link Icons (Android only):
+
 Ensure apply from: "../../node_modules/react-native-vector-icons/fonts.gradle" is in android/app/build.gradle.
 
-4. Run the Application:
+4. Run the Application: 
 
-# For Android
 npx react-native run-android
 
 # For iOS
+
 npx react-native run-ios
 
 
