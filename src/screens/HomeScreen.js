@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -9,6 +9,8 @@ import {
 import { useSelector } from 'react-redux';
 import { COLORS, SIZES } from '../utils/theme';
 import Shimmer from '../components/Shimmer';
+import LinearGradient from 'react-native-linear-gradient';
+import Icon from 'react-native-vector-icons/Feather';
 
 const HomeScreen = ({ navigation }) => {
   const [loading, setLoading] = useState(true);
@@ -37,66 +39,60 @@ const HomeScreen = ({ navigation }) => {
         </View>
       </View>
     );
-  };
+  }
 
   const renderHeader = () => (
-    <View style={styles.headerContainer}>
-      <Text style={styles.welcomeText}>Good Morning,</Text>
-      <Text style={styles.userName}>Finance Pro</Text>
+    <View style={styles.header}>
+      <View style={styles.topRow}>
+        <View>
+          <Text style={styles.greeting}>Good Morning 👋</Text>
+          <Text style={styles.userName}>Finance Pro</Text>
+        </View>
+        <TouchableOpacity style={styles.profileCircle}>
+          <Icon name="user" size={20} color={COLORS.primary} />
+        </TouchableOpacity>
+      </View>
 
       {/* Balance Card */}
-      <View style={styles.balanceCard}>
-        <Text style={styles.balanceTitle}>Total Balance</Text>
+      <LinearGradient
+        colors={[COLORS.primary, '#3A0CA3']}
+        style={styles.balanceCard}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 0 }}
+      >
+        <Text style={styles.balanceLabel}>Total Balance</Text>
         <Text style={styles.balanceAmount}>₹{balance.toLocaleString()}</Text>
 
-        <View style={styles.row}>
-          <View>
-            <Text style={styles.incomeExpenseTitle}>Income</Text>
-            <Text style={styles.incomeAmount}>+ ₹{income}</Text>
+        <View style={styles.statsRow}>
+          <View style={styles.statItem}>
+            <Icon name="arrow-down-left" size={18} color={COLORS.success} />
+            <View style={{ marginLeft: 8 }}>
+              <Text style={styles.statLabel}>Income</Text>
+              <Text style={styles.statValue}>+ ₹{income}</Text>
+            </View>
           </View>
-          <View style={{ alignItems: 'flex-end' }}>
-            <Text style={styles.incomeExpenseTitle}>Expenses</Text>
-            <Text style={styles.expenseAmount}>- ₹{expense}</Text>
+          <View style={[styles.statItem, { alignItems: 'flex-end' }]}>
+            <View style={{ marginRight: 8, alignItems: 'flex-end' }}>
+              <Text style={styles.statLabel}>Expenses</Text>
+              <Text style={styles.statValue}>- ₹{expense}</Text>
+            </View>
+            <Icon name="arrow-up-right" size={18} color={COLORS.danger} />
           </View>
         </View>
-      </View>
+      </LinearGradient>
 
-      {/* Savings Goal Card */}
-      <View
-        style={[
-          styles.card,
-          {
-            marginTop: 20,
-            backgroundColor: 'white',
-            padding: 15,
-            borderRadius: 12,
-          },
-        ]}
-      >
-        <Text style={{ fontWeight: 'bold' }}>Goal: New Laptop (₹50,000)</Text>
-        <View
-          style={{
-            height: 10,
-            backgroundColor: '#E0E0E0',
-            borderRadius: 5,
-            marginTop: 10,
-          }}
-        >
-          <View
-            style={{
-              width: '40%',
-              height: 10,
-              backgroundColor: COLORS.secondary,
-              borderRadius: 5,
-            }}
-          />
+      <View style={styles.goalCard}>
+        <View style={styles.goalHeader}>
+          <Text style={styles.goalTitle}>Target: New Laptop</Text>
+          <Text style={styles.goalPercent}>40%</Text>
         </View>
-        <Text style={{ fontSize: 12, color: COLORS.grey, marginTop: 5 }}>
-          ₹20,000 saved (40%)
-        </Text>
+        <View style={styles.progressBarBg}>
+          <View style={[styles.progressBarFill, { width: '40%' }]} />
+        </View>
+        <Text style={styles.goalSub}>₹20,000 of ₹50,000 saved</Text>
       </View>
 
-      <Text style={styles.sectionTitle}>Recent Transactions</Text>
+      <Text style={styles.sectionTitle}>Recent Activity</Text>
     </View>
   );
 
@@ -109,8 +105,8 @@ const HomeScreen = ({ navigation }) => {
         renderItem={({ item }) => (
           <View style={styles.transactionItem}>
             <View>
-              <Text style={styles.transName}>{item.title}</Text>
-              <Text style={styles.transCategory}>{item.category}</Text>
+              <Text style={{ fontWeight: 'bold', fontSize: 16}}>{item.title}</Text>
+              <Text style={{fontSize: 12}}>{item.category}</Text>
             </View>
             <Text
               style={[
@@ -144,83 +140,133 @@ const HomeScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLORS.background,
+    backgroundColor: '#F0F2F5',
   },
-  headerContainer: {
-    padding: SIZES.padding,
-    paddingTop: 50,
+  header: {
+    padding: 20,
   },
-  welcomeText: {
-    fontSize: 16,
-    color: COLORS.grey,
+  topRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 25,
+  },
+  greeting: {
+    fontSize: 14,
+    color: COLORS.darkGrey,
+    fontWeight: '500',
   },
   userName: {
     fontSize: 22,
     fontWeight: 'bold',
     color: COLORS.black,
-    marginBottom: 20,
   },
+  profileCircle: {
+    width: 45,
+    height: 45,
+    borderRadius: 23,
+    backgroundColor: 'white',
+    justifyContent: 'center',
+    alignItems: 'center',
+    elevation: 3,
+  },
+
   balanceCard: {
-    backgroundColor: COLORS.primary,
-    borderRadius: SIZES.borderRadius,
+    borderRadius: 24,
     padding: 25,
-    elevation: 10,
+    elevation: 12,
     shadowColor: COLORS.primary,
-    shadowOpacity: 0.3,
-    shadowRadius: 10,
+    shadowOpacity: 0.4,
+    shadowRadius: 15,
   },
-  balanceTitle: {
+  balanceLabel: {
     color: 'rgba(255,255,255,0.7)',
     fontSize: 14,
+    fontWeight: '600',
   },
   balanceAmount: {
-    color: COLORS.white,
-    fontSize: 32,
+    color: 'white',
+    fontSize: 36,
     fontWeight: 'bold',
-    marginVertical: 10,
+    marginVertical: 8,
   },
-  row: {
+  statsRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginTop: 20,
+    paddingTop: 20,
+    borderTopWidth: 1,
+    borderTopColor: 'rgba(255,255,255,0.1)',
   },
-  incomeExpenseTitle: {
-    color: 'rgba(255,255,255,0.7)',
+  statItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  statLabel: {
+    color: 'rgba(255,255,255,0.6)',
+    fontSize: 11,
+  },
+  statValue: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+
+  goalCard: {
+    backgroundColor: 'white',
+    borderRadius: 20,
+    padding: 20,
+    marginTop: 25,
+    elevation: 4,
+    shadowColor: '#000',
+    shadowOpacity: 0.05,
+  },
+  goalHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 10,
+  },
+  goalTitle: {
+    fontWeight: 'bold',
+    color: COLORS.black,
+  },
+  goalPercent: {
+    color: COLORS.primary,
+    fontWeight: 'bold',
+  },
+  progressBarBg: {
+    height: 8,
+    backgroundColor: '#E9ECEF',
+    borderRadius: 4,
+  },
+  progressBarFill: {
+    height: 8,
+    backgroundColor: COLORS.success,
+    borderRadius: 4,
+  },
+  goalSub: {
     fontSize: 12,
+    color: COLORS.darkGrey,
+    marginTop: 8,
   },
-  incomeAmount: {
-    color: '#4ADE80',
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  expenseAmount: {
-    color: '#F87171',
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
+
   sectionTitle: {
     fontSize: 18,
     fontWeight: 'bold',
     marginTop: 30,
     color: COLORS.black,
+    marginBottom: 15,
   },
   transactionItem: {
+    backgroundColor: 'white',
+    padding: 16,
+    borderRadius: 18,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    padding: 15,
-    backgroundColor: COLORS.white,
-    marginHorizontal: SIZES.padding,
-    marginVertical: 8,
-    borderRadius: 12,
     alignItems: 'center',
-  },
-  transName: {
-    fontSize: 16,
-    fontWeight: '600',
-  },
-  transCategory: {
-    fontSize: 12,
-    color: COLORS.grey,
+    marginBottom: 12,
+    marginHorizontal: 20,
+    elevation: 2,
   },
   transAmount: {
     fontSize: 16,
@@ -230,23 +276,18 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 30,
     right: 30,
+    width: 64,
+    height: 64,
+    borderRadius: 32,
     backgroundColor: COLORS.primary,
-    width: 60,
-    height: 60,
-    borderRadius: 30,
     justifyContent: 'center',
     alignItems: 'center',
-    elevation: 5,
+    elevation: 8,
   },
   fabText: {
     color: 'white',
-    fontSize: 30,
+    fontSize: 32,
     lineHeight: 32,
-  },
-  emptyText: {
-    textAlign: 'center',
-    marginTop: 50,
-    color: COLORS.grey,
   },
 });
 
