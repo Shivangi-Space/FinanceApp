@@ -10,33 +10,50 @@ import {
   Platform,
 } from 'react-native';
 import { useDispatch } from 'react-redux';
-import { addTransaction } from '../redux/transactionSlice';
+import { addTransaction, updateTransaction } from '../redux/transactionSlice';
 import { COLORS, SIZES } from '../utils/theme';
 import Icon from 'react-native-vector-icons/Feather';
 import LinearGradient from 'react-native-linear-gradient';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-const AddTransaction = ({ navigation }) => {
-  const [title, setTitle] = useState('');
-  const [amount, setAmount] = useState('');
-  const [type, setType] = useState('Expense');
+const AddTransaction = ({ navigation, route }) => {
   const dispatch = useDispatch();
+
+  const editItem = route.params?.item;
+
+  const [title, setTitle] = useState(editItem ? editItem.title : '');
+  const [amount, setAmount] = useState(editItem ? editItem.amount.toString() : '');
+  const [type, setType] = useState(editItem ? editItem.type : 'Expense');
 
   const handleSave = () => {
     if (!title || !amount) {
-      Alert.alert('Error', 'Please fill all the details');
+      Alert.alert('Error', 'Please fill all fields');
       return;
     }
 
-    const newTransaction = {
-      id: Date.now(),
-      title,
-      amount: parseFloat(amount),
-      type,
-      category: 'General',
-      date: new Date().toLocaleDateString(),
-    };
-    dispatch(addTransaction(newTransaction));
+    if (editItem) {
+      // EDIT MODE
+      dispatch(updateTransaction({
+        id: editItem.id,
+        updatedData: {
+          title,
+          amount: parseFloat(amount),
+          type,
+        }
+      }));
+    } else {
+      // ADD MODE
+      const newTransaction = {
+        id: Date.now(),
+        title,
+        amount: parseFloat(amount),
+        type,
+        category: 'General',
+        date: new Date().toLocaleDateString(),
+      };
+      dispatch(addTransaction(newTransaction));
+    }
+    
     navigation.goBack();
   };
 
@@ -53,7 +70,8 @@ const AddTransaction = ({ navigation }) => {
           >
             <Icon name="arrow-left" size={28} color={COLORS.black} />
           </TouchableOpacity>
-          <Text style={styles.headerTitle}>Add Transaction</Text>
+          {/* <Text style={styles.headerTitle}>Add Transaction</Text> */}
+           <Text style={styles.headerTitle}>{editItem ? 'Edit Entry' : 'Add New Entry'}</Text>
           <View style={{ width: 40 }} /> 
         </View>
 
@@ -118,9 +136,13 @@ const AddTransaction = ({ navigation }) => {
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 0 }}
             >
-              <Text style={styles.saveButtonText}>Add to History</Text>
+              {/* <Text style={styles.saveButtonText}>Add Transaction</Text> */}
+              <Text style={styles.saveButtonText}>
+             {editItem ? 'Update Transaction' : 'Save Transaction'}
+          </Text>
             </LinearGradient>
           </TouchableOpacity>
+
         </View>
       </KeyboardAvoidingView>
     </SafeAreaView>

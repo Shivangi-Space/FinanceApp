@@ -5,6 +5,7 @@ import {
   StyleSheet,
   FlatList,
   TouchableOpacity,
+  TextInput,
   Alert,
 } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
@@ -17,10 +18,14 @@ import { deleteTransaction } from '../redux/transactionSlice';
 const HomeScreen = ({ navigation }) => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState('');
+
   // Fetching data from Redux store
   const { list, balance, income, expense } = useSelector(
     state => state.transaction,
   );
+
+  const filteredList = list.filter(item => item.title.toLowerCase().includes(searchQuery.toLowerCase()));
 
   useEffect(() => {
     setTimeout(() => setLoading(false), 1500);
@@ -114,17 +119,36 @@ const HomeScreen = ({ navigation }) => {
       </View>
 
       <Text style={styles.sectionTitle}>Recent Activity</Text>
+
+            <View style={styles.searchContainer}>
+        <Icon name="search" size={20} color={COLORS.darkGrey} style={{marginLeft: 10}} />
+        <TextInput
+          style={styles.searchInput}
+          placeholder="Search transactions..."
+          placeholderTextColor={COLORS.darkGrey}
+          value={searchQuery}
+          onChangeText={setSearchQuery}
+        />
+        {searchQuery.length > 0 && (
+          <TouchableOpacity onPress={() => setSearchQuery('')}>
+            <Icon name="x-circle" size={18} color={COLORS.darkGrey} style={{marginRight: 10}} />
+          </TouchableOpacity>
+        )}
+      </View>
+
     </View>
   );
 
   return (
     <View style={styles.container}>
       <FlatList
-        data={list}
+        data={filteredList}
         keyExtractor={item => item.id.toString()}
         ListHeaderComponent={renderHeader}
         renderItem={({ item }) => (
-          <View style={styles.transactionItem}>
+          <TouchableOpacity style={styles.transactionItem}
+            onPress={() => navigation.navigate('AddTransaction', {item})}
+          >
             <View
               style={{ flexDirection: 'row', alignItems: 'center', flex: 1 }}
             >
@@ -178,7 +202,7 @@ const HomeScreen = ({ navigation }) => {
                 <Icon name="trash-2" size={16} color={COLORS.darkGrey} />
               </TouchableOpacity>
             </View>
-          </View>
+          </TouchableOpacity>
         )}
         ListEmptyComponent={
           <View style={styles.empty}>
@@ -230,6 +254,24 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     elevation: 3,
+  },
+
+  searchContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: 'white',
+    borderRadius: 15,
+    marginTop: 20,
+    height: 50,
+    elevation: 2,
+    shadowColor: '#000',
+    shadowOpacity: 0.05,
+  },
+  searchInput: {
+    flex: 1,
+    paddingHorizontal: 10,
+    fontSize: 16,
+    color: COLORS.black,
   },
 
   balanceCard: {
