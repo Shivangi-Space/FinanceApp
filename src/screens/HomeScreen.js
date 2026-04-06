@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import {
   View,
   Text,
@@ -144,7 +144,7 @@ const HomeScreen = ({ navigation }) => {
       <FlatList
         data={filteredList}
         keyExtractor={item => item.id.toString()}
-        ListHeaderComponent={renderHeader}
+        ListHeaderComponent={renderHeader()}
         renderItem={({ item }) => (
           <TouchableOpacity style={styles.transactionItem}
             onPress={() => navigation.navigate('AddTransaction', {item})}
