@@ -43,8 +43,11 @@ const InsightsScreen = () => {
   });
 
   return (
-    <ScrollView style={styles.container}>
+    <>
+    <View style={styles.heading}>
       <Text style={styles.mainTitle}>Financial Insights</Text>
+    </View>
+    <ScrollView style={styles.container}>
 
       <View style={styles.chartCard}>
         <Text style={styles.chartTitle}>Expense Structure</Text>
@@ -75,6 +78,7 @@ const InsightsScreen = () => {
         </View>
       </View>
     </ScrollView>
+    </>
   );
 };
 
@@ -86,23 +90,16 @@ const styles = StyleSheet.create({
     padding: SIZES.padding,
     backgroundColor: COLORS.background,
   },
-  title: {
-    fontSize: 22,
-    fontWeight: 'bold',
-    marginBottom: 20,
-    marginTop: 40,
-  },
-  card: {
+  heading: {
     backgroundColor: 'white',
-    padding: 20,
-    borderRadius: 15,
-    marginTop: 20,
-    elevation: 3,
+    height: 60,
+    justifyContent: 'center',
   },
-  cardTitle: {
+  mainTitle: {
+    fontSize: 18,
     fontWeight: 'bold',
-    fontSize: 16,
-    marginBottom: 5,
+    color: 'black',
+    textAlign: 'center',
   },
   insightText: {
     color: COLORS.grey,
@@ -111,14 +108,14 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 24,
     padding: 20,
-    margin: 20,
+    marginTop: 10,
     elevation: 5,
   },
   insightBox: {
     flexDirection: 'row',
     backgroundColor: '#FFF4E6',
     padding: 20,
-    margin: 20,
+    marginTop: 20,
     borderRadius: 20,
     borderLeftWidth: 5,
     borderLeftColor: COLORS.warning,

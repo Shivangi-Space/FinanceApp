@@ -65,7 +65,7 @@ const HomeScreen = ({ navigation }) => {
 
         <View style={styles.statsRow}>
           <View style={styles.statItem}>
-            <Icon name="arrow-down-left" size={18} color={COLORS.success} />
+            <Icon name="arrow-down-left" size={20} color={COLORS.success} />
             <View style={{ marginLeft: 8 }}>
               <Text style={styles.statLabel}>Income</Text>
               <Text style={styles.statValue}>+ ₹{income}</Text>
@@ -76,7 +76,7 @@ const HomeScreen = ({ navigation }) => {
               <Text style={styles.statLabel}>Expenses</Text>
               <Text style={styles.statValue}>- ₹{expense}</Text>
             </View>
-            <Icon name="arrow-up-right" size={18} color={COLORS.danger} />
+            <Icon name="arrow-up-right" size={20} color={COLORS.danger} />
           </View>
         </View>
       </LinearGradient>
@@ -204,7 +204,7 @@ const styles = StyleSheet.create({
   },
   statLabel: {
     color: 'rgba(255,255,255,0.6)',
-    fontSize: 11,
+    fontSize: 14,
   },
   statValue: {
     color: 'white',
