@@ -43,8 +43,36 @@ const transactionSlice = createSlice({
                 state.list = state.list.filter(item => item.id !== id);
             }
         },
+
+        updateTransaction: (state, action) => {
+    const { id, updatedData } = action.payload;
+    const index = state.list.findIndex(item => item.id === id);
+    
+    if (index !== -1) {
+        const oldItem = state.list[index];
+        
+        if (oldItem.type.toLowerCase() === 'income') {
+            state.balance -= oldItem.amount;
+            state.income -= oldItem.amount;
+        } else {
+            state.balance += oldItem.amount;
+            state.expense -= oldItem.amount;
+        }
+
+        state.list[index] = { ...oldItem, ...updatedData };
+        const newItem = state.list[index];
+
+        if (newItem.type.toLowerCase() === 'income') {
+            state.balance += newItem.amount;
+            state.income += newItem.amount;
+        } else {
+            state.balance -= newItem.amount;
+            state.expense += newItem.amount;
+        }
+    }
+},
     },
 });
 
-export const { addTransaction, deleteTransaction } = transactionSlice.actions;
+export const { addTransaction, deleteTransaction, updateTransaction } = transactionSlice.actions;
 export default transactionSlice.reducer;

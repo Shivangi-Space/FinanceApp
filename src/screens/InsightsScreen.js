@@ -8,7 +8,6 @@ import Icon from 'react-native-vector-icons/Feather';
 const InsightsScreen = () => {
   const { list } = useSelector(state => state.transaction);
 
-  // 1. Data Processing
   const data = [
     {
       name: 'Food',
@@ -37,7 +36,6 @@ const InsightsScreen = () => {
 
   list.forEach(item => {
     if (item.type.toLowerCase() === 'expense') {
-      // Case-insensitive check
       totalExpense += item.amount;
       if (item.title.toLowerCase().includes('food'))
         data[0].population += item.amount;
@@ -47,7 +45,6 @@ const InsightsScreen = () => {
     }
   });
 
-  // 2. Placeholder data agar koi expense na ho
   const placeholderData = [
     {
       name: 'No Data',
