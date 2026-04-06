@@ -1,10 +1,10 @@
 ## Introduction of Finance App
 A lightweight, intuitive, and modern mobile application designed to help users track their daily money habits, monitor savings goals, and understand spending patterns through visual insights.
 
-🚀 Project Overview:
+# 🚀 Project Overview:
 This app is built as a Personal Finance Companion (not a banking app). It focuses on simplicity and speed, allowing users to quickly log transactions, see their current financial health at a glance, and stay motivated toward their savings targets.
 
-✨ Key Features
+# ✨ Key Features
 1. Home Dashboard
 Summary Cards: Real-time calculation of Total Balance, Income, and Expenses.
 Visual Progress: Integrated a "Savings Goal" progress bar to keep users engaged with their financial targets.
@@ -25,7 +25,7 @@ Empty States: Thoughtfully designed "No Data" screens with actionable prompts (C
 Modern UI: Used Linear Gradients, soft shadows, and a clean typography hierarchy for a premium mobile feel.
 
 
-🛠 Tech Stack
+# 🛠 Tech Stack
 1. Framework: React Native (CLI)
 2. State Management: Redux Toolkit (for predictable state)
 3. Persistence: Redux Persist + AsyncStorage (Offline-first approach)
@@ -33,7 +33,7 @@ Modern UI: Used Linear Gradients, soft shadows, and a clean typography hierarchy
 5. UI Components: React Native SVG, Chart Kit, Vector Icons, Linear Gradient.
 
 
-📋 Assumptions & Product Thinking
+# 📋 Assumptions & Product Thinking
 During development, I made the following sensible assumptions:
 
 1. Offline-First: Finance tracking should be instant. I chose Local Storage over a Cloud API to ensure the app works perfectly without internet, respecting user privacy.
@@ -42,7 +42,7 @@ During development, I made the following sensible assumptions:
 4. Safety First: Critical actions like "Delete" always trigger a native confirmation alert.
 
 
-🏗 Project Structure
+# 🏗 Project Structure
 
 src/
  ├── assets/          # Icons and Fonts
@@ -53,7 +53,7 @@ src/
  ├── utils/           # Global Theme (Colors, Sizes) and Constants
 
 
-📥 Setup Instructions
+# 📥 Setup Instructions
 -> Prerequisites
 Node.js (>14)
 React Native Environment Setup (Android Studio / Xcode)
@@ -70,6 +70,7 @@ npm install
 Ensure apply from: "../../node_modules/react-native-vector-icons/fonts.gradle" is in android/app/build.gradle.
 
 4. Run the Application:
+
 # For Android
 npx react-native run-android
 
@@ -77,7 +78,7 @@ npx react-native run-android
 npx react-native run-ios
 
 
-📈 Future Enhancements
+# 📈 Future Enhancements
 1. Multi-Currency Support: Ability to switch between USD, EUR, etc.
 2. Biometric Lock: Adding Fingerprint/FaceID for extra security.
 3. Data Export: Exporting monthly reports in PDF/CSV format.
