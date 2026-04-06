@@ -1,11 +1,14 @@
 export const COLORS = {
-  primary: '#1A237E',
-  secondary: '#00C853',
-  danger: '#D50000',
-  background: '#F5F7FA',
+  primary: '#4361EE', 
+  secondary: '#4CC9F0', 
+  success: '#06D6A0', 
+  danger: '#EF476F', 
+  warning: '#FFD166', 
   white: '#FFFFFF',
-  grey: '#757575',
-  black: '#000000',
+  black: '#050505',
+  lightGrey: '#F8F9FA',
+  darkGrey: '#6C757D',
+  transparentWhite: 'rgba(255, 255, 255, 0.2)',
 };
 
 export const SIZES = {

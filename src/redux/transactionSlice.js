@@ -9,22 +9,42 @@ const transactionSlice = createSlice({
         expense: 0,
     },
     reducers: {
-        addTranaction: (state, action) => {
+        addTransaction: (state, action) => {
             state.list.unshift(action.payload);
-            if(action.payload.type === 'income') {
-                state.income += action.payload.amount;
-                state.balance += action.payload.amount;
+            
+            const type = action.payload.type.toLowerCase();
+            const amount = action.payload.amount;
+
+            if (type === 'income') {
+                state.income += amount;
+                state.balance += amount;
             } else {
-                state.expense += action.payload.amount;
-                state.balance -=action.payload.amount;
+                state.expense += amount;
+                state.balance -= amount;
             }
         },
 
         deleteTransaction: (state, action) => {
+            const id = action.payload;
+            const itemToDelete = state.list.find(item => item.id === id);
 
+            if (itemToDelete) {
+                const type = itemToDelete.type.toLowerCase();
+                const amount = itemToDelete.amount;
+
+                if (type === 'income') {
+                    state.income -= amount;
+                    state.balance -= amount;
+                } else {
+                    state.expense -= amount;
+                    state.balance += amount;
+                }
+                
+                state.list = state.list.filter(item => item.id !== id);
+            }
         },
     },
 });
 
-export const { addTranaction, deleteTransaction } = transactionSlice.actions;
+export const { addTransaction, deleteTransaction } = transactionSlice.actions;
 export default transactionSlice.reducer;
