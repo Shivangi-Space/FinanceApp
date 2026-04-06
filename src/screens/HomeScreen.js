@@ -5,14 +5,17 @@ import {
   StyleSheet,
   FlatList,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { COLORS, SIZES } from '../utils/theme';
 import Shimmer from '../components/Shimmer';
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/Feather';
+import { deleteTransaction } from '../redux/transactionSlice';
 
 const HomeScreen = ({ navigation }) => {
+  const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
   // Fetching data from Redux store
   const { list, balance, income, expense } = useSelector(
@@ -40,6 +43,24 @@ const HomeScreen = ({ navigation }) => {
       </View>
     );
   }
+
+  const handleDelete = id => {
+    Alert.alert(
+      'Delete Transaction',
+      'Are you sure you want to delete this transaction?',
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        },
+        {
+          text: 'Delete',
+          style: 'destructive',
+          onPress: () => dispatch(deleteTransaction(id)),
+        },
+      ],
+    );
+  };
 
   const renderHeader = () => (
     <View style={styles.header}>
@@ -104,25 +125,65 @@ const HomeScreen = ({ navigation }) => {
         ListHeaderComponent={renderHeader}
         renderItem={({ item }) => (
           <View style={styles.transactionItem}>
-            <View>
-              <Text style={{ fontWeight: 'bold', fontSize: 16}}>{item.title}</Text>
-              <Text style={{fontSize: 12}}>{item.category}</Text>
-            </View>
-            <Text
-              style={[
-                styles.transAmount,
-                {
-                  color:
-                    item.type === 'Income' ? COLORS.secondary : COLORS.danger,
-                },
-              ]}
+            <View
+              style={{ flexDirection: 'row', alignItems: 'center', flex: 1 }}
             >
-              {item.type === 'Income' ? '+' : '-'} ₹{item.amount}
-            </Text>
+              {/* Category Icon Placeholder */}
+              <View style={styles.iconBg}>
+                <Icon
+                  name={
+                    item.type === 'Income' ? 'trending-up' : 'trending-down'
+                  }
+                  size={16}
+                  color={
+                    item.type === 'Income' ? COLORS.success : COLORS.danger
+                  }
+                />
+              </View>
+
+              <View style={{ marginLeft: 12, flex: 1 }}>
+                <Text
+                  style={{
+                    fontWeight: 'bold',
+                    fontSize: 16,
+                    color: COLORS.black,
+                  }}
+                >
+                  {item.title}
+                </Text>
+                <Text style={{ fontSize: 12, color: COLORS.darkGrey }}>
+                  {item.category}
+                </Text>
+              </View>
+            </View>
+
+            <View style={{ alignItems: 'flex-end' }}>
+              <Text
+                style={[
+                  styles.transAmount,
+                  {
+                    color:
+                      item.type === 'Income' ? COLORS.success : COLORS.danger,
+                  },
+                ]}
+              >
+                {item.type === 'Income' ? '+' : '-'} ₹{item.amount}
+              </Text>
+
+              {/* DELETE BUTTON */}
+              <TouchableOpacity
+                onPress={() => handleDelete(item.id)}
+                style={{ marginTop: 5 }}
+              >
+                <Icon name="trash-2" size={16} color={COLORS.darkGrey} />
+              </TouchableOpacity>
+            </View>
           </View>
         )}
         ListEmptyComponent={
-          <Text style={styles.emptyText}>No transactions yet!</Text>
+          <View style={styles.empty}>
+            <Text style={styles.emptyText}>No transactions yet!</Text>
+          </View>
         }
       />
 
@@ -193,7 +254,7 @@ const styles = StyleSheet.create({
   statsRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: 20,
+    marginTop: 10,
     paddingTop: 20,
     borderTopWidth: 1,
     borderTopColor: 'rgba(255,255,255,0.1)',
@@ -255,18 +316,29 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginTop: 30,
     color: COLORS.black,
-    marginBottom: 15,
+    marginBottom: 0,
+  },
+  iconBg: {
+    width: 40,
+    height: 40,
+    borderRadius: 10,
+    backgroundColor: '#F0F2F5',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   transactionItem: {
     backgroundColor: 'white',
-    padding: 16,
+    padding: 12,
     borderRadius: 18,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: 12,
     marginHorizontal: 20,
-    elevation: 2,
+    elevation: 3,
+    shadowColor: '#000',
+    shadowOpacity: 0.05,
+    shadowRadius: 5,
   },
   transAmount: {
     fontSize: 16,
@@ -289,6 +361,16 @@ const styles = StyleSheet.create({
     fontSize: 32,
     lineHeight: 32,
   },
+  empty: {
+    width: '100%',
+    height: 200,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  emptyText: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  }
 });
 
 export default HomeScreen;

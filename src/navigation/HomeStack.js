@@ -17,7 +17,7 @@ const HomeStack = () => {
             <Stack.Screen
                 name="AddTransaction"
                 component={AddTransaction}
-                options={{ title: 'Add New Entry' }}
+                options={{ headerShown: false }}
             />
         </Stack.Navigator>
     )
